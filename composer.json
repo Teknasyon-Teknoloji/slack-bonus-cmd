@@ -1,6 +1,6 @@
 {
-  "name": "teknasyon/slack-cmd",
-  "description": "Slack Cmd",
+  "name": "teknasyon/slack-bonus-cmd",
+  "description": "Slack Bonus Cmd",
   "type": "project",
   "require": {
     "phpmailer/phpmailer": "5.2.*"
