@@ -1,0 +1,8 @@
+{
+  "name": "teknasyon/slack-cmd",
+  "description": "Slack Cmd",
+  "type": "project",
+  "require": {
+    "phpmailer/phpmailer": "5.2.*"
+  }
+}
