@@ -3,7 +3,7 @@
 try {
 
     include 'vendor/autoload.php';
-    include '../config.inc.php';
+    include 'config.inc.php';
     include BASE_PATH . 'functions.inc.php';
 
     $db = new PDO(
@@ -39,21 +39,21 @@ try {
         foreach ($userStats as $userStat) {
             if ($userStat['prim_date']==date('Y-m-01') && $userStat['toplam']>=$primConfig['prim.limit.monthly']) {
                 $db->query("UPDATE prim SET status=-1 WHERE id=" . $waitingPrim['id']);
-                sendResponseToSlack($waitingPrim['slack_response_url'], 'Aylık "Teşekkür Bonusu" limitiniz doldu! [#'. $waitingPrim['id'] .']', $logId);
+                sendResponseToSlack($waitingPrim['slack_response_url'], 'Aylık "Teşekkür Bonusu" limitiniz doldu! [#'. $waitingPrim['id'] .']', LOG_ID);
                 continue 2;
             }
             $yearCount += $userStat['toplam'];
         }
         if ($yearCount>=$primConfig['prim.limit.yearly']) {
             $db->query("UPDATE prim SET status=-2 WHERE id=" . $waitingPrim['id']);
-            sendResponseToSlack($waitingPrim['slack_response_url'], 'Yıllık "Teşekkür Bonusu" limitiniz doldu! [#'. $waitingPrim['id'] .']', $logId);
+            sendResponseToSlack($waitingPrim['slack_response_url'], 'Yıllık "Teşekkür Bonusu" limitiniz doldu! [#'. $waitingPrim['id'] .']', LOG_ID);
             continue;
         }
         $db->query("UPDATE prim SET status=1 WHERE id=" . $waitingPrim['id']);
         sendResponseToSlack(
             $waitingPrim['slack_response_url'],
             '"Teşekkür Bonusu" bildiriminiz işlendi. [#'. $waitingPrim['id'] .']',
-            $logId
+            LOG_ID
         );
         $payerName = isset($userInfos[ $waitingPrim['user_slack_id'] ])
             ?$userInfos[ $waitingPrim['user_slack_id'] ]['name']. ' ' . $userInfos[ $waitingPrim['user_slack_id'] ]['surname']
@@ -86,5 +86,5 @@ try {
         }
     }
 } catch (\Exception $e) {
-    error_log('[' . $logId . '][CRITICAL] Exception: ' . $e->getMessage(). ' ' . $e->getTraceAsString());
+    error_log('[' . LOG_ID . '][CRITICAL] Exception: ' . $e->getMessage(). ' ' . $e->getTraceAsString());
 }
