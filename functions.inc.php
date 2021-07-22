@@ -18,7 +18,7 @@ function getConfigList(\PDO $db)
 
 function sendMail($toList, $subject, $msg, $attachment = null)
 {
-    $mailer = new \PHPMailer(true);
+    $mailer = new \PHPMailer\PHPMailer\PHPMailer(true);
     $mailer->IsSMTP();
     $mailer->SMTPAuth = true;
     $mailer->SMTPSecure = 'tls';

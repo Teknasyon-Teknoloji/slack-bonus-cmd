@@ -3,6 +3,6 @@
   "description": "Slack Bonus Cmd",
   "type": "project",
   "require": {
-    "phpmailer/phpmailer": "5.2.*"
+    "phpmailer/phpmailer": "6.5.*"
   }
 }
